@@ -1,0 +1,161 @@
+LOAN DEFAULT RISK DASHBOARD - DAX MEASURES
+================================================
+
+IMPORTANT:
+Replace 'Loan_Default_Risk_Dataset' with your actual Power BI table name if it is different.
+
+1. Total Loans
+----------------
+Total Loans =
+COUNTROWS('Loan_Default_Risk_Dataset')
+
+
+2. Total Loan Amount
+---------------------
+Total Loan Amount =
+SUM('Loan_Default_Risk_Dataset'[Loan_Amount])
+
+
+3. Outstanding Amount
+----------------------
+Outstanding Amount =
+SUM('Loan_Default_Risk_Dataset'[Outstanding_Amount])
+
+
+4. Defaulted Loans
+-------------------
+Defaulted Loans =
+CALCULATE(
+    COUNTROWS('Loan_Default_Risk_Dataset'),
+    'Loan_Default_Risk_Dataset'[Default_Status] = "Default"
+)
+
+
+5. Default Rate
+----------------
+Default Rate =
+DIVIDE(
+    [Defaulted Loans],
+    [Total Loans],
+    0
+)
+
+Format this measure as Percentage.
+
+
+6. High Risk Customers
+-----------------------
+High Risk Customers =
+CALCULATE(
+    DISTINCTCOUNT('Loan_Default_Risk_Dataset'[Customer_ID]),
+    'Loan_Default_Risk_Dataset'[Risk_Category] = "High"
+)
+
+
+7. Average Credit Score
+------------------------
+Average Credit Score =
+AVERAGE('Loan_Default_Risk_Dataset'[Credit_Score])
+
+
+8. Non-Defaulted Loans
+-----------------------
+Non-Defaulted Loans =
+CALCULATE(
+    COUNTROWS('Loan_Default_Risk_Dataset'),
+    'Loan_Default_Risk_Dataset'[Default_Status] = "Non-Default"
+)
+
+
+9. Total Customers
+-------------------
+Total Customers =
+DISTINCTCOUNT('Loan_Default_Risk_Dataset'[Customer_ID])
+
+
+10. Average Loan Amount
+------------------------
+Average Loan Amount =
+AVERAGE('Loan_Default_Risk_Dataset'[Loan_Amount])
+
+
+11. Average DTI
+---------------
+Average DTI =
+AVERAGE('Loan_Default_Risk_Dataset'[Debt_to_Income_Ratio])
+
+
+12. Defaulted Loan Amount
+--------------------------
+Defaulted Loan Amount =
+CALCULATE(
+    SUM('Loan_Default_Risk_Dataset'[Loan_Amount]),
+    'Loan_Default_Risk_Dataset'[Default_Status] = "Default"
+)
+
+
+13. Non-Defaulted Loan Amount
+-----------------------------
+Non-Defaulted Loan Amount =
+CALCULATE(
+    SUM('Loan_Default_Risk_Dataset'[Loan_Amount]),
+    'Loan_Default_Risk_Dataset'[Default_Status] = "Non-Default"
+)
+
+
+14. Defaulted Customer Count
+-----------------------------
+Defaulted Customer Count =
+CALCULATE(
+    DISTINCTCOUNT('Loan_Default_Risk_Dataset'[Customer_ID]),
+    'Loan_Default_Risk_Dataset'[Default_Status] = "Default"
+)
+
+
+15. Non-Defaulted Customer Count
+---------------------------------
+Non-Defaulted Customer Count =
+CALCULATE(
+    DISTINCTCOUNT('Loan_Default_Risk_Dataset'[Customer_ID]),
+    'Loan_Default_Risk_Dataset'[Default_Status] = "Non-Default"
+)
+
+
+16. Average Interest Rate
+--------------------------
+Average Interest Rate =
+AVERAGE('Loan_Default_Risk_Dataset'[Interest_Rate])
+
+
+17. Average Debt to Income Ratio
+---------------------------------
+Average Debt to Income Ratio =
+AVERAGE('Loan_Default_Risk_Dataset'[Debt_to_Income_Ratio])
+
+
+18. High Risk Loan Count
+-------------------------
+High Risk Loan Count =
+CALCULATE(
+    COUNTROWS('Loan_Default_Risk_Dataset'),
+    'Loan_Default_Risk_Dataset'[Risk_Category] = "High"
+)
+
+
+19. Medium Risk Loan Count
+---------------------------
+Medium Risk Loan Count =
+CALCULATE(
+    COUNTROWS('Loan_Default_Risk_Dataset'),
+    'Loan_Default_Risk_Dataset'[Risk_Category] = "Medium"
+)
+
+
+20. Low Risk Loan Count
+------------------------
+Low Risk Loan Count =
+CALCULATE(
+    COUNTROWS('Loan_Default_Risk_Dataset'),
+    'Loan_Default_Risk_Dataset'[Risk_Category] = "Low"
+)
+
